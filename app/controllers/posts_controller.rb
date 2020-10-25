@@ -1,17 +1,13 @@
 class PostsController < ApplicationController
-  def index #アクションを定義した
-    # @post = Post.find(1)
-    # #1番目のレコードを@postに代入（モデル名.find(レコードのid)
-    @posts = Post.all
-    # #全てのレコードを@postsに代入
 
-    def new
-    end
+ def index
+   @posts = Post.all.order(id: "DESC")
+   #新しいメモを一番上に。
+ end
 
-    def create
-      Post.create(content: params[:content])
-      #(カラム名.paramsとして送られてきたデータ)
-    end
+ def create
+   Post.create(content: params[:content])
+   redirect_to action: :index
+ end
 
-  end
 end
