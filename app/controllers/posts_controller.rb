@@ -1,13 +1,29 @@
 class PostsController < ApplicationController
 
- def index
-   @posts = Post.all.order(id: "DESC")
-   #新しいメモを一番上に。
- end
-
- def create
-   Post.create(content: params[:content])
-   redirect_to action: :index
- end
+  def index
+    @posts = Post.all.order(id: "DESC")
+    #新しいメモを一番上に。
+  end
+  def create
+    Post.create(content: params[:content])
+    redirect_to action: :index
+  end
+  def checked
+    # binding.pry
+    post = Post.find(params[:id])
+    # URLパラメーターから既読したメモのidを見つける。
+    if post.checked
+      post.update(checked: false)
+      #既読を解除するためにfalseへ変更
+      # updateはActiveRecordのメソッド
+    else
+      post.update(checked: true)
+      #既読にするためtrueに変更
+    end
+    item = Post.find(params[:id])
+    #更新したレコードを取得し直す
+    render json: { post: item }
+    #JSON形式としてchecked.jsに返却。
+  end
 
 end
