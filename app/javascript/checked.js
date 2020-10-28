@@ -4,6 +4,7 @@ function check() {
   posts.forEach(function (post) {
      if (post.getAttribute("data-load") != null) {
       return null;
+    //2回目以降は、9行目のtrueが格納され6行目のreturn nullが適用される。
     }
     post.setAttribute("data-load", "true");
     // メモをクリックした場合に実行する処理を定義している
