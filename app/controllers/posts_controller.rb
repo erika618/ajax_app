@@ -5,11 +5,12 @@ class PostsController < ApplicationController
     #新しいメモを一番上に。
   end
   def create
-    Post.create(content: params[:content])
-    redirect_to action: :index
+    # メモ作成時に未読の情報を保存
+    post = Post.create(content: params[:content], checked: false)
+    render json:{ post: post }
+    # redirect_to action: :index
   end
   def checked
-    # binding.pry
     post = Post.find(params[:id])
     # URLパラメーターから既読したメモのidを見つける。
     if post.checked
